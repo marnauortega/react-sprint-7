@@ -1,0 +1,36 @@
+[
+  {
+    "id": 0,
+    "name": "root",
+    "childIds": [1, 4, 5]
+  },
+  {
+    "id": 1,
+    "name": "website",
+    "text": "Una pàgina web (500€)",
+    "type": "checkbox",
+    "price": 500,
+    "childIds": [2, 3]
+  },
+  { "id": 2, "name": "pages", "text": "Número de pàgines", "type": "text", "price": 30, "childIds": [], "base": 1 },
+  {
+    "id": 3,
+    "name": "languages",
+    "text": "Número d'idiomes",
+    "type": "text",
+    "price": 30,
+    "childIds": [],
+    "base": 1,
+    "multiplier": true,
+    "multipliedIds": [2]
+  },
+  { "id": 4, "name": "SEO", "text": "Una consultoria SEO (300€)", "type": "checkbox", "price": 300, "childIds": [] },
+  {
+    "id": 5,
+    "name": "marketing",
+    "text": "Una campanya de google Ads (200€)",
+    "type": "checkbox",
+    "price": 200,
+    "childIds": []
+  }
+]
