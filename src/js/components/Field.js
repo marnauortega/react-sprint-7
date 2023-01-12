@@ -1,6 +1,8 @@
 export const Field = ({ id, form, setForm }) => {
   const field = form[id];
 
+  console.log(field.qty);
+
   function isValidNumber(value) {
     // only 0 or more digits
     return /^\d*$/.test(value);

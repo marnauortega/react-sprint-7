@@ -11,6 +11,18 @@ export const Form = () => {
 
   const [form, setForm] = useState(fields);
 
+  // Load form on page load
+  useEffect(() => {
+    const retrieveForm = localStorage.getItem("form");
+    if (retrieveForm) {
+      console.log(localStorage.getItem("form"));
+      setForm(JSON.parse(retrieveForm));
+    }
+  }, []);
+
+  // Save form to localStorage if it changes
+  useEffect(() => localStorage.setItem("form", JSON.stringify(form)), [form]);
+
   const root = fields[0];
   const mainFields = form.filter((f) => root.childIds.includes(f.id));
 
