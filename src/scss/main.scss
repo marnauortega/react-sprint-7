@@ -29,3 +29,15 @@ fieldset .field {
   justify-content: space-between;
   gap: 10px;
 }
+
+.field input {
+  border: 0;
+  text-align: center;
+}
+
+.quantity-update {
+  background: #f88c34;
+  color: white;
+  border-radius: 5px;
+  border: 0;
+}
