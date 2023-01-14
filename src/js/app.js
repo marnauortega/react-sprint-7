@@ -1,22 +1,29 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { Form } from "./components/Form";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-let websitePrice = 0;
-let SEOPrice = 0;
-let adsPrice = 0;
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Budget from "./components/Budget";
 
 const App = () => {
   return (
-    <div className="card">
-      <h1>Què vols fer?</h1>
-      <Form />
-    </div>
+    <>
+      <BrowserRouter>
+        <div className="centered">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/budget" element={<Budget />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </>
   );
 };
 
 ReactDOM.createRoot(document.querySelector("#root")).render(
-  // <React.StrictMode>
-  <App />
-  // </React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );

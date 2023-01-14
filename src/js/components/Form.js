@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Field } from "./Field";
 let fields = require("../../data/products.json");
 
-export const Form = () => {
+const Form = () => {
   // Set default qty
   fields.forEach((field) => {
     if (field.type === "checkbox") field.qty = 0;
@@ -71,3 +71,5 @@ export const Form = () => {
     </form>
   );
 };
+
+export default Form;

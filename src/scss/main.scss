@@ -1,43 +1,29 @@
+@import "_form";
+@import "_header";
+@import "_home";
 @import "_variables";
 @import "_components";
 
 body {
   margin: 0;
+  font-family: serif;
 }
 
-.card {
+h1 {
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  line-height: 1.6;
+  font-weight: bolder;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+.centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.field {
-  padding: 5px 0;
-}
-
-fieldset {
-  margin-top: 10px;
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 20px 10px;
-}
-
-fieldset .field {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.field input {
-  border: 0;
-  text-align: center;
-}
-
-.quantity-update {
-  background: #f88c34;
-  color: white;
-  border-radius: 5px;
-  border: 0;
 }
