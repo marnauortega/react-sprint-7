@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Field } from "./Field";
+import Field from "./Field";
 let fields = require("../../data/products.json");
 
 const Form = () => {
@@ -15,7 +15,7 @@ const Form = () => {
   useEffect(() => {
     const retrieveForm = localStorage.getItem("form");
     if (retrieveForm) {
-      console.log(localStorage.getItem("form"));
+      // console.log(localStorage.getItem("form"));
       setForm(JSON.parse(retrieveForm));
     }
   }, []);

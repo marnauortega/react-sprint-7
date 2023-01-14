@@ -1,11 +1,12 @@
-export const Field = ({ id, form, setForm }) => {
+import Subfields from "./Subfields";
+import QuantityButton from "./QuantityButton";
+
+const Field = ({ id, form, setForm }) => {
   const field = form[id];
 
-  console.log(field.qty);
-
   function isValidNumber(value) {
-    // only 0 or more digits
-    return /^\d*$/.test(value);
+    // only 0 or more digits, and cannot begin with "0"
+    return /^(?!0)\d*$/.test(value);
   }
 
   function handleField(e) {
@@ -28,7 +29,7 @@ export const Field = ({ id, form, setForm }) => {
 
     // State update
     const newField = {
-      ...form[id],
+      ...field,
       ...newQty,
     };
     const newForm = form.map((f) => (f.id === id ? newField : f));
@@ -47,66 +48,16 @@ export const Field = ({ id, form, setForm }) => {
   if (field.type === "text") valueOrChecked = { value: field.qty };
   if (field.type === "checkbox") valueOrChecked = { checked: field.qty };
 
-  // Button qty update
-  const updateQty = (e, increase) => {
-    e.preventDefault();
-
-    let qtyValue;
-    if (increase) {
-      qtyValue = field.qty + 1;
-    } else {
-      qtyValue = isValidNumber(field.qty - 1) ? field.qty - 1 : 0;
-    }
-
-    let newQty = {
-      qty: qtyValue,
-    };
-
-    // State update
-    const newField = {
-      ...form[id],
-      ...newQty,
-    };
-
-    const newForm = form.map((f) => (f.id === id ? newField : f));
-    setForm(newForm);
-  };
-
-  let increaseBtn;
-  if (field.type === "text")
-    increaseBtn = (
-      <button className="quantity-update" onClick={(e) => updateQty(e, true)}>
-        +
-      </button>
-    );
-  let decreaseBtn;
-  if (field.type === "text")
-    decreaseBtn = (
-      <button className="quantity-update" onClick={(e) => updateQty(e, false)}>
-        -
-      </button>
-    );
-
-  // Subfield generator
-  let subFields;
-  if (field.childIds.length && field.qty) {
-    const subFieldObjects = form.filter((f) => field.childIds.includes(f.id));
-    subFields = (
-      <fieldset>
-        {subFieldObjects.map((field) => (
-          <Field key={field.id} id={field.id} form={form} setForm={setForm} />
-        ))}
-      </fieldset>
-    );
-  }
-
   return (
     <div className="field">
-      {increaseBtn}
+      <QuantityButton increase={true} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
       <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
-      {decreaseBtn}
+      <QuantityButton increase={false} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
       <label htmlFor={field.name}>{field.text}</label>
-      {subFields}
+      {/* <Help /> */}
+      <Subfields key={field.id} id={field.id} form={form} setForm={setForm} />
     </div>
   );
 };
+
+export default Field;
