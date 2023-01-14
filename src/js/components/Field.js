@@ -1,5 +1,6 @@
 import Subfields from "./Subfields";
 import QuantityButton from "./QuantityButton";
+import Help from "./Help";
 
 const Field = ({ id, form, setForm }) => {
   const field = form[id];
@@ -49,14 +50,16 @@ const Field = ({ id, form, setForm }) => {
   if (field.type === "checkbox") valueOrChecked = { checked: field.qty };
 
   return (
-    <div className="field">
-      <QuantityButton increase={true} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
-      <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
-      <QuantityButton increase={false} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
-      <label htmlFor={field.name}>{field.text}</label>
-      {/* <Help /> */}
+    <>
+      <div className={"field " + field.type}>
+        <label htmlFor={field.name}>{field.text}</label>
+        <QuantityButton increase={false} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
+        <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
+        <QuantityButton increase={true} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
+        <Help id={id} form={form} setForm={setForm} />
+      </div>
       <Subfields key={field.id} id={field.id} form={form} setForm={setForm} />
-    </div>
+    </>
   );
 };
 

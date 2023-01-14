@@ -12,7 +12,16 @@
     "price": 500,
     "childIds": [2, 3]
   },
-  { "id": 2, "name": "pages", "text": "Número de pàgines", "type": "text", "price": 30, "childIds": [], "base": 1 },
+  {
+    "id": 2,
+    "name": "pages",
+    "text": "Número de pàgines",
+    "type": "text",
+    "price": 30,
+    "childIds": [],
+    "base": 1,
+    "help": "Número de pàgines que tindrà la web. Cada pàgina són 30€. La primera pàgina és gratis!"
+  },
   {
     "id": 3,
     "name": "languages",
@@ -22,7 +31,8 @@
     "childIds": [],
     "base": 1,
     "multiplier": true,
-    "multipliedIds": [2]
+    "multipliedIds": [2],
+    "help": "Número d'idiomes de la web. Cada nou idioma traduït costarà 30€ per pàgina (però la primera pàgina és gratis)"
   },
   { "id": 4, "name": "SEO", "text": "Una consultoria SEO (300€)", "type": "checkbox", "price": 300, "childIds": [] },
   {

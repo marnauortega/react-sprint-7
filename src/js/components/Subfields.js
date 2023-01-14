@@ -8,7 +8,7 @@ function Subfields({ id, form, setForm }) {
   if (field.childIds.length && field.qty) {
     const subFieldObjects = form.filter((f) => field.childIds.includes(f.id));
     subFields = (
-      <fieldset>
+      <fieldset className="border">
         {subFieldObjects.map((field) => (
           <Field key={field.id} id={field.id} form={form} setForm={setForm} />
         ))}

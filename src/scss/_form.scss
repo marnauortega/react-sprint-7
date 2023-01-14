@@ -1,19 +1,16 @@
 .field {
   padding: 5px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
-fieldset {
-  margin-top: 10px;
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 20px 10px;
+.checkbox > input {
+  order: -1;
 }
 
 fieldset .field {
-  display: flex;
-  flex-direction: row-reverse;
   justify-content: space-between;
-  gap: 10px;
 }
 
 .field input {
