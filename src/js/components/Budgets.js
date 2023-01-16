@@ -66,12 +66,47 @@ function Budgets({ form, budgets, setBudgets, setForm, setEditing, setEditIndex,
 
   useEffect(() => calculateLastEdit(), [budgets.length, editing]);
 
+  const filterByName = (ascending) => {
+    const newBudgets = [...budgets];
+    const sortedBudgets = newBudgets.sort((a, b) => {
+      const aName = a.form.find((f) => f.name === "budget").input;
+      const bName = b.form.find((f) => f.name === "budget").input;
+      console.log(aName, bName, aName < bName, aName > bName);
+      if (ascending) return aName < bName ? -1 : 1;
+      if (!ascending) return aName < bName ? 1 : -1;
+      return 0;
+    });
+    setBudgets(sortedBudgets);
+  };
+
+  const filterByDate = (ascending) => {
+    const newBudgets = [...budgets];
+    const sortedBudgets = newBudgets.sort((a, b) => (ascending ? a.date - b.date : b.date - a.date));
+    setBudgets(sortedBudgets);
+  };
+
+  const filterByTotal = (ascending) => {
+    const newBudgets = [...budgets];
+    const sortedBudgets = newBudgets.sort((a, b) => {
+      if (ascending) return a.total < b.total ? -1 : 1;
+      if (!ascending) return a.total < b.total ? 1 : -1;
+      return 0;
+    });
+    setBudgets(sortedBudgets);
+  };
+
   return (
     <>
       <div className="budgets">
         <h1>Budgets</h1>
-        {budgets.map((budget, index) => (
-          <div key={budget.date} className="budget border">
+        <div className="filters">
+          <button onClick={() => filterByName(true)}>Alphabetical</button>
+          <button onClick={() => filterByName(false)}>Alphabetical backwrads</button>
+          <button onClick={() => filterByDate(true)}>Chronological</button>
+          <button onClick={() => filterByDate(false)}>Chronological backwrads</button>
+          <button onClick={() => filterByTotal(true)}>Total</button>
+          <button onClick={() => filterByTotal(false)}>Total backwrads</button>
+        </div>
         {budgets.map((budget, index) => {
           return (
             <div key={budget.id} className="budget border">
