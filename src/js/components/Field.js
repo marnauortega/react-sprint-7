@@ -12,29 +12,28 @@ const Field = ({ id, form, setForm }) => {
 
   function handleField(e) {
     // Checkbox qty update
-    let newQty;
+    let newInput;
     if (field.type === "checkbox") {
-      newQty = {
+      newInput = {
         qty: e.target.checked ? 1 : 0,
       };
     }
 
-    // Input value update
+    // Text value update
     if (field.type === "text") {
-      if (!isValidNumber(e.target.value)) return;
-
-      newQty = {
-        qty: e.target.value,
+      newInput = {
+        input: e.target.value,
       };
     }
 
-    // State update
-    const newField = {
-      ...field,
-      ...newQty,
-    };
-    const newForm = form.map((f) => (f.id === id ? newField : f));
-    setForm(newForm);
+    // Num qty update
+    if (field.type === "num") {
+      if (!isValidNumber(e.target.value)) return;
+
+      newInput = {
+        qty: e.target.value,
+      };
+    }
 
     // // TODO: why doesn't this update the checkbox?
     // setForm((form) => {
@@ -42,20 +41,29 @@ const Field = ({ id, form, setForm }) => {
     //   console.log("qty", form[id].qty);
     //   return form;
     // });
+
+    // State update
+    const newField = {
+      ...field,
+      ...newInput,
+    };
+    const newForm = form.map((f) => (f.id === id ? newField : f));
+    setForm(newForm);
   }
 
   // Prop for checkbox or prop for input
   let valueOrChecked;
-  if (field.type === "text") valueOrChecked = { value: field.qty };
+  if (field.type === "text") valueOrChecked = { value: field.input };
   if (field.type === "checkbox") valueOrChecked = { checked: field.qty };
+  if (field.type === "num") valueOrChecked = { value: field.qty };
 
   return (
     <>
       <div className={"field " + field.type}>
         <label htmlFor={field.name}>{field.text}</label>
-        <QuantityButton increase={false} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
+        <QuantityButton increase={false} id={id} form={form} setForm={setForm} />
         <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
-        <QuantityButton increase={true} id={id} form={form} setForm={setForm} isValidNumber={isValidNumber} />
+        <QuantityButton increase={true} id={id} form={form} setForm={setForm} />
         <Help id={id} form={form} setForm={setForm} />
       </div>
       <Subfields key={field.id} id={field.id} form={form} setForm={setForm} />

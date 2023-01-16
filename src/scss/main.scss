@@ -1,3 +1,4 @@
+@import "_budget";
 @import "_form";
 @import "_header";
 @import "_home";
@@ -23,6 +24,10 @@ h3 {
   font-weight: 300;
 }
 
+p {
+  margin: 0;
+}
+
 #root {
   display: flex;
   justify-content: center;
@@ -35,4 +40,13 @@ h3 {
   border: 2px solid black;
   border-radius: 15px;
   padding: 20px 10px;
+}
+
+.budget {
+  display: flex;
+  gap: 50px;
+}
+
+.icon {
+  cursor: pointer;
 }

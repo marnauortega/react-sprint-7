@@ -13,6 +13,7 @@ function Help({ id, form, setForm }) {
     <>
       <img
         src={helpImage}
+        className="icon"
         alt="help icon"
         onClick={() => {
           setActive(true);

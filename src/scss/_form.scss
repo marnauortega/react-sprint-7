@@ -5,15 +5,24 @@
   gap: 10px;
 }
 
+.field.text {
+  display: flex;
+  flex-direction: column;
+}
+
 .checkbox > input {
   order: -1;
+}
+
+input[type="checkbox" i] {
+  margin: 0;
 }
 
 fieldset .field {
   justify-content: space-between;
 }
 
-.field input {
+.field:not(.text) input {
   border: 0;
   text-align: center;
 }

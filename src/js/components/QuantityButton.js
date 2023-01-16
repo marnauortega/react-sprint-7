@@ -1,6 +1,6 @@
 import React from "react";
 
-function QuantityButton({ increase, id, form, setForm, isValidNumber }) {
+function QuantityButton({ increase, id, form, setForm }) {
   const field = form[id];
 
   // Button qty update
@@ -29,9 +29,9 @@ function QuantityButton({ increase, id, form, setForm, isValidNumber }) {
   };
 
   let quantityButton;
-  if (field.type === "text")
+  if (field.type === "num")
     quantityButton = (
-      <button className="quantity-update" onClick={(e) => updateQty(e, increase)}>
+      <button className="quantity-update icon" onClick={(e) => updateQty(e, increase)}>
         {increase ? "+" : "-"}
       </button>
     );

@@ -2,41 +2,75 @@
   {
     "id": 0,
     "name": "root",
-    "childIds": [1, 4, 5]
+    "type": "",
+    "childIds": [1, 4]
   },
   {
     "id": 1,
-    "name": "website",
-    "text": "Una pàgina web (500€)",
-    "type": "checkbox",
-    "price": 500,
+    "name": "infoRoot",
+    "type": "",
     "childIds": [2, 3]
   },
   {
     "id": 2,
+    "name": "budget",
+    "text": "Nom del pressupost",
+    "type": "text",
+    "childIds": []
+  },
+  {
+    "id": 3,
+    "name": "client",
+    "text": "Nom del client",
+    "type": "text",
+    "childIds": []
+  },
+  {
+    "id": 4,
+    "name": "serviceRoot",
+    "type": "",
+    "childIds": [5, 8, 9]
+  },
+  {
+    "id": 5,
+    "name": "website",
+    "text": "Una pàgina web (500€)",
+    "type": "checkbox",
+    "price": 500,
+    "childIds": [6, 7]
+  },
+  {
+    "id": 6,
     "name": "pages",
     "text": "Número de pàgines",
-    "type": "text",
+    "type": "num",
     "price": 30,
     "childIds": [],
     "base": 1,
     "help": "Número de pàgines que tindrà la web. Cada pàgina són 30€. La primera pàgina és gratis!"
   },
   {
-    "id": 3,
+    "id": 7,
     "name": "languages",
     "text": "Número d'idiomes",
-    "type": "text",
+    "type": "num",
     "price": 30,
     "childIds": [],
     "base": 1,
     "multiplier": true,
-    "multipliedIds": [2],
+    "multipliedIds": [6],
     "help": "Número d'idiomes de la web. Cada nou idioma traduït costarà 30€ per pàgina (però la primera pàgina és gratis)"
   },
-  { "id": 4, "name": "SEO", "text": "Una consultoria SEO (300€)", "type": "checkbox", "price": 300, "childIds": [] },
   {
-    "id": 5,
+    "id": 8,
+    "name": "SEO",
+    "text": "Una consultoria SEO (300€)",
+    "type": "checkbox",
+    "price": 300,
+    "childIds": []
+  },
+  {
+    "id": 9,
     "name": "marketing",
     "text": "Una campanya de google Ads (200€)",
     "type": "checkbox",
