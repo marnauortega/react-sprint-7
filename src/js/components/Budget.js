@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+"use strict";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import Budgets from "./Budgets";
 import Form from "./Form";
@@ -11,17 +12,49 @@ function Budget() {
   fields.forEach((field) => {
     if (field.type === "checkbox") field.qty = 0;
     if (field.type === "text") field.input = "";
-    if (field.type === "num") field.qty = 1;
+    if (field.type === "num") field.qty = field.base;
   });
 
   const [form, setForm] = useState(fields);
-  manageLocalStorage(form, setForm);
+  manageLocalStorage("form", form, setForm);
 
   const [editing, setEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(0);
 
   // Create Budget
   const [budgets, setBudgets] = useState([]);
+  const [budgetsToPrint, setBudgetsToPrint] = useState([]);
+
+  manageLocalStorage("budgets", budgets, setBudgets);
+  manageLocalStorage("budgetsToPrint", budgetsToPrint, setBudgetsToPrint);
+
+  // Get search params qties
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const newForm = form.map((field) => {
+      let newQty = field.qty;
+
+      for (const [key, value] of searchParams) {
+        if (key === field.name) {
+          if (field.type === "checkbox") newQty = value === "true" ? 1 : 0;
+          if (field.type === "num") newQty = value ? parseInt(value) : 1;
+        }
+      }
+
+      return {
+        ...field,
+        qty: newQty,
+      };
+    });
+
+    setForm(newForm);
+  }, []);
+
+  function parseEmptyString(value) {
+    if (!value) return 1;
+    return parseInt(value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +62,8 @@ function Budget() {
     // For uncompressed form, use the following
     // const budgetForm = form;
     // For trimmed form, use the following
-    const budgetForm = form.map((f) => ({ id: f.id, name: f.name, input: f.input, qty: f.qty }));
-    const budget = { id: budgets.length, date: new Date(), lastEdit: "", form: budgetForm, total: calculateTotal() };
+    const budgetForm = form.map((f) => ({ id: f.id, name: f.name, input: f.input, qty: parseEmptyString(f.qty) }));
+    const budget = { id: budgets.length, date: Date.now(), lastEdit: "", form: budgetForm, total: calculateTotal() };
 
     let newBudgets;
     if (!editing) {
@@ -38,7 +71,7 @@ function Budget() {
     } else {
       newBudget = {
         ...budgets[editIndex],
-        editDate: new Date(),
+        editDate: Date.now(),
         form: budget.form,
         total: calculateTotal(),
       };
@@ -46,8 +79,8 @@ function Budget() {
       newBudgets[editIndex] = newBudget;
     }
 
-    console.log(newBudgets);
     setBudgets(newBudgets);
+    setBudgetsToPrint(newBudgets);
     setEditing(false);
   };
 
@@ -97,6 +130,8 @@ function Budget() {
         handleSubmit={handleSubmit}
         calculateTotal={calculateTotal}
         fieldsToPrint={fieldsToPrint}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
       />
       <Budgets
         form={form}
@@ -106,6 +141,8 @@ function Budget() {
         setEditing={setEditing}
         setEditIndex={setEditIndex}
         editing={editing}
+        budgetsToPrint={budgetsToPrint}
+        setBudgetsToPrint={setBudgetsToPrint}
       />
     </main>
   );

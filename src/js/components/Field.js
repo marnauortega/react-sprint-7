@@ -2,7 +2,7 @@ import Subfields from "./Subfields";
 import QuantityButton from "./QuantityButton";
 import Help from "./Help";
 
-const Field = ({ id, form, setForm }) => {
+const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
   const field = form[id];
 
   function isValidNumber(value) {
@@ -17,6 +17,9 @@ const Field = ({ id, form, setForm }) => {
       newInput = {
         qty: e.target.checked ? 1 : 0,
       };
+
+      searchParams.set([field.name], e.target.checked);
+      setSearchParams(searchParams);
     }
 
     // Text value update
@@ -33,14 +36,10 @@ const Field = ({ id, form, setForm }) => {
       newInput = {
         qty: e.target.value,
       };
-    }
 
-    // // TODO: why doesn't this update the checkbox?
-    // setForm((form) => {
-    //   form[id].qty = e.target.checked;
-    //   console.log("qty", form[id].qty);
-    //   return form;
-    // });
+      searchParams.set([field.name], e.target.value);
+      setSearchParams(searchParams);
+    }
 
     // State update
     const newField = {
@@ -61,12 +60,33 @@ const Field = ({ id, form, setForm }) => {
     <>
       <div className={"field " + field.type}>
         <label htmlFor={field.name}>{field.text}</label>
-        <QuantityButton increase={false} id={id} form={form} setForm={setForm} />
+        <QuantityButton
+          increase={false}
+          id={id}
+          form={form}
+          setForm={setForm}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
         <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
-        <QuantityButton increase={true} id={id} form={form} setForm={setForm} />
+        <QuantityButton
+          increase={true}
+          id={id}
+          form={form}
+          setForm={setForm}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
         <Help id={id} form={form} setForm={setForm} />
       </div>
-      <Subfields key={field.id} id={field.id} form={form} setForm={setForm} />
+      <Subfields
+        key={field.id}
+        id={field.id}
+        form={form}
+        setForm={setForm}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
     </>
   );
 };

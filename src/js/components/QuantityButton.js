@@ -1,6 +1,6 @@
 import React from "react";
 
-function QuantityButton({ increase, id, form, setForm }) {
+function QuantityButton({ increase, id, form, setForm, searchParams, setSearchParams }) {
   const field = form[id];
 
   // Button qty update
@@ -9,7 +9,7 @@ function QuantityButton({ increase, id, form, setForm }) {
 
     let qtyValue;
     if (increase) {
-      qtyValue = field.qty + 1;
+      qtyValue = field.qty ? parseInt(field.qty) + 1 : 1;
     } else {
       qtyValue = field.qty - 1 > 0 ? field.qty - 1 : 1;
     }
@@ -26,6 +26,9 @@ function QuantityButton({ increase, id, form, setForm }) {
 
     const newForm = form.map((f) => (f.id === id ? newField : f));
     setForm(newForm);
+
+    searchParams.set([field.name], qtyValue);
+    setSearchParams(searchParams);
   };
 
   let quantityButton;

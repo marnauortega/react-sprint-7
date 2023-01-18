@@ -17,7 +17,6 @@ function Help({ id, form, setForm }) {
         alt="help icon"
         onClick={() => {
           setActive(true);
-          console.log(active);
         }}
       />
       {active && <Overlay help={help} setActive={setActive} />}

@@ -1,7 +1,7 @@
 import React from "react";
 import Field from "./Field";
 
-function Subfields({ id, form, setForm }) {
+function Subfields({ id, form, setForm, searchParams, setSearchParams }) {
   const field = form[id];
 
   let subFields;
@@ -10,7 +10,14 @@ function Subfields({ id, form, setForm }) {
     subFields = (
       <fieldset className="border">
         {subFieldObjects.map((field) => (
-          <Field key={field.id} id={field.id} form={form} setForm={setForm} />
+          <Field
+            key={field.id}
+            id={field.id}
+            form={form}
+            setForm={setForm}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
         ))}
       </fieldset>
     );

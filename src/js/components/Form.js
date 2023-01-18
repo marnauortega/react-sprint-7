@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Field from "./Field";
 
-const Form = ({ form, setForm, handleSubmit, calculateTotal, fieldsToPrint }) => {
+const Form = ({ form, setForm, handleSubmit, calculateTotal, fieldsToPrint, searchParams, setSearchParams }) => {
   const total = calculateTotal();
 
   return (
@@ -9,7 +9,14 @@ const Form = ({ form, setForm, handleSubmit, calculateTotal, fieldsToPrint }) =>
       <h1>Què vols fer?</h1>
       <form onSubmit={handleSubmit}>
         {fieldsToPrint.map((field) => (
-          <Field key={field.id} id={field.id} form={form} setForm={setForm} />
+          <Field
+            key={field.id}
+            id={field.id}
+            form={form}
+            setForm={setForm}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
         ))}
         <p>
           Preu: <span className="price">{total}€</span>
