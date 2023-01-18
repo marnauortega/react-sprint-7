@@ -31,16 +31,12 @@ function Budgets({
     const newForm = form.map((field, index) => {
       const f = selectedForm[index];
 
-      const newInput = {
+      return {
+        ...field,
         id: f.id,
         name: f.name,
         input: f.input,
         qty: f.qty,
-      };
-
-      return {
-        ...field,
-        ...newInput,
       };
     });
 
@@ -67,12 +63,10 @@ function Budgets({
         secondDifference = secondDifference ? `${secondDifference} segundos ` : "";
         const noDifference = dayDifference || hourDifference || minuteDifference || secondDifference ? "" : "Now";
 
-        const newBudget = {
+        return {
           ...budget,
           lastEdit: dayDifference + hourDifference + minuteDifference + secondDifference + noDifference,
         };
-
-        return newBudget;
       }
       return budget;
     });

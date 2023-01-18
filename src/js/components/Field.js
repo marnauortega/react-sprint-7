@@ -11,12 +11,11 @@ const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
   }
 
   function handleField(e) {
+    const newForm = [...form];
+
     // Checkbox qty update
-    let newInput;
     if (field.type === "checkbox") {
-      newInput = {
-        qty: e.target.checked ? 1 : 0,
-      };
+      newForm[id].qty = e.target.checked ? 1 : 0;
 
       searchParams.set([field.name], e.target.checked);
       setSearchParams(searchParams);
@@ -24,29 +23,19 @@ const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
 
     // Text value update
     if (field.type === "text") {
-      newInput = {
-        input: e.target.value,
-      };
+      newForm[id].input = e.target.value;
     }
 
     // Num qty update
     if (field.type === "num") {
       if (!isValidNumber(e.target.value)) return;
 
-      newInput = {
-        qty: e.target.value,
-      };
+      newForm[id].qty = e.target.value;
 
       searchParams.set([field.name], e.target.value);
       setSearchParams(searchParams);
     }
 
-    // State update
-    const newField = {
-      ...field,
-      ...newInput,
-    };
-    const newForm = form.map((f) => (f.id === id ? newField : f));
     setForm(newForm);
   }
 

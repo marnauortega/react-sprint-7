@@ -7,27 +7,15 @@ function QuantityButton({ increase, id, form, setForm, searchParams, setSearchPa
   const updateQty = (e, increase) => {
     e.preventDefault();
 
-    let qtyValue;
+    const newForm = [...form];
     if (increase) {
-      qtyValue = field.qty ? parseInt(field.qty) + 1 : 1;
+      newForm[id].qty = field.qty ? parseInt(field.qty) + 1 : 1;
     } else {
-      qtyValue = field.qty - 1 > 0 ? field.qty - 1 : 1;
+      newForm[id].qty = field.qty - 1 > 0 ? field.qty - 1 : 1;
     }
-
-    let newQty = {
-      qty: qtyValue,
-    };
-
-    // State update
-    const newField = {
-      ...field,
-      ...newQty,
-    };
-
-    const newForm = form.map((f) => (f.id === id ? newField : f));
     setForm(newForm);
 
-    searchParams.set([field.name], qtyValue);
+    searchParams.set([field.name], newForm[id].qty);
     setSearchParams(searchParams);
   };
 
