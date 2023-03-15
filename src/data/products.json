@@ -14,14 +14,14 @@
   {
     "id": 2,
     "name": "budget",
-    "text": "Nom del pressupost",
+    "text": "Title",
     "type": "text",
     "childIds": []
   },
   {
     "id": 3,
     "name": "client",
-    "text": "Nom del client",
+    "text": "Client",
     "type": "text",
     "childIds": []
   },
@@ -34,7 +34,7 @@
   {
     "id": 5,
     "name": "website",
-    "text": "Una pàgina web (500€)",
+    "text": "Website",
     "type": "checkbox",
     "price": 500,
     "childIds": [6, 7]
@@ -42,7 +42,7 @@
   {
     "id": 6,
     "name": "pages",
-    "text": "Número de pàgines",
+    "text": "Pages",
     "type": "num",
     "price": 30,
     "childIds": [],
@@ -52,7 +52,7 @@
   {
     "id": 7,
     "name": "languages",
-    "text": "Número d'idiomes",
+    "text": "Languages",
     "type": "num",
     "price": 30,
     "childIds": [],
@@ -64,7 +64,7 @@
   {
     "id": 8,
     "name": "SEO",
-    "text": "Una consultoria SEO (300€)",
+    "text": "SEO",
     "type": "checkbox",
     "price": 300,
     "childIds": []
@@ -72,7 +72,7 @@
   {
     "id": 9,
     "name": "marketing",
-    "text": "Una campanya de google Ads (200€)",
+    "text": "Ads",
     "type": "checkbox",
     "price": 200,
     "childIds": []

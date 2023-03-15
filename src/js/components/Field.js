@@ -2,7 +2,7 @@ import Subfields from "./Subfields";
 import QuantityButton from "./QuantityButton";
 import Help from "./Help";
 
-const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
+const Field = ({ id, form, setForm, searchParams, setSearchParams, emptyForm, setShowRepresentation }) => {
   const field = form[id];
 
   function isValidNumber(value) {
@@ -12,6 +12,8 @@ const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
 
   function handleField(e) {
     const newForm = [...form];
+
+    setShowRepresentation(true);
 
     // Checkbox qty update
     if (field.type === "checkbox") {
@@ -45,28 +47,46 @@ const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
   if (field.type === "checkbox") valueOrChecked = { checked: field.qty };
   if (field.type === "num") valueOrChecked = { value: field.qty };
 
+  let placeholder;
+  if (field.type === "text") placeholder = { placeholder: "cannot be empty" };
+
   return (
     <>
       <div className={"field " + field.type}>
-        <label htmlFor={field.name}>{field.text}</label>
-        <QuantityButton
-          increase={false}
-          id={id}
-          form={form}
-          setForm={setForm}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
+        <label htmlFor={field.name}>
+          {field.text}
+          <Help id={id} form={form} setForm={setForm} />
+        </label>
+
+        <div className="quantities">
+          <QuantityButton
+            increase={false}
+            id={id}
+            form={form}
+            setForm={setForm}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+            setShowRepresentation={setShowRepresentation}
+          />
+          <QuantityButton
+            increase={true}
+            id={id}
+            form={form}
+            setForm={setForm}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+            setShowRepresentation={setShowRepresentation}
+          />
+        </div>
+        <input
+          type={field.type}
+          className={emptyForm ? "placeholder-shown" : ""}
+          id={field.name}
+          {...valueOrChecked}
+          onChange={handleField}
+          autoComplete="off"
+          {...placeholder}
         />
-        <input type={field.type} id={field.name} {...valueOrChecked} onChange={handleField} />
-        <QuantityButton
-          increase={true}
-          id={id}
-          form={form}
-          setForm={setForm}
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
-        />
-        <Help id={id} form={form} setForm={setForm} />
       </div>
       <Subfields
         key={field.id}
@@ -75,6 +95,7 @@ const Field = ({ id, form, setForm, searchParams, setSearchParams }) => {
         setForm={setForm}
         searchParams={searchParams}
         setSearchParams={setSearchParams}
+        setShowRepresentation={setShowRepresentation}
       />
     </>
   );

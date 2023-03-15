@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <main className="home">
-      <h1>
-        This is a tiny
-        <br /> budget app
-      </h1>
-      <h3>Feel free to create your website budgets</h3>
+    <main>
+      <div className="container">
+        <h1>
+          A tiny
+          <br /> budget
+          <br />
+          app
+        </h1>
+        <Link to="/budget">
+          <button className="button">New</button>
+        </Link>
+      </div>
     </main>
   );
 }

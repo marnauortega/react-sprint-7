@@ -4,6 +4,7 @@ const manageLocalStorage = (key, element, setState) => {
   // Load element on page load
   useEffect(() => {
     const retrieveElement = localStorage.getItem(key);
+    console.log(retrieveElement);
     if (retrieveElement) {
       setState(JSON.parse(retrieveElement));
     }

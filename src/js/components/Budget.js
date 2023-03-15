@@ -1,19 +1,23 @@
 "use strict";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import Budgets from "./Budgets";
+import Representation from "./Representation";
 import Form from "./Form";
 let fields = require("../../data/products.json");
 import manageLocalStorage from "../localStorage";
 
 function Budget() {
   // Set default qty
-  fields.forEach((field) => {
-    if (field.type === "checkbox") field.qty = 0;
-    if (field.type === "text") field.input = "";
-    if (field.type === "num") field.qty = field.base;
-  });
+  function resetForm() {
+    fields.forEach((field) => {
+      if (field.type === "checkbox") field.qty = 0;
+      if (field.type === "text") field.input = "";
+      if (field.type === "num") field.qty = field.base;
+    });
+  }
+  resetForm();
 
   const [form, setForm] = useState(fields);
   manageLocalStorage("form", form, setForm);
@@ -30,6 +34,10 @@ function Budget() {
 
   // Get search params qties
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [emptyForm, setEmptyForm] = useState(false);
+
+  const [showRepresentation, setShowRepresentation] = useState(true);
 
   useEffect(() => {
     const newForm = form.map((field) => {
@@ -58,11 +66,22 @@ function Budget() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const hasEmptyFields = form
+      .filter((field) => field.type === "text")
+      .map((field) => (field.input ? true : false))
+      .includes(false);
+
+    if (hasEmptyFields) {
+      setEmptyForm(true);
+      return;
+    }
+
+    setEmptyForm(false);
 
     // For uncompressed form, use the following
-    // const budgetForm = form;
+    const budgetForm = form;
     // For trimmed form, use the following
-    const budgetForm = form.map((f) => ({ id: f.id, name: f.name, input: f.input, qty: parseEmptyString(f.qty) }));
+    // const budgetForm = form.map((f) => ({ id: f.id, name: f.name, input: f.input, qty: parseEmptyString(f.qty) }));
     const budget = { id: budgets.length, date: Date.now(), lastEdit: "", form: budgetForm, total: calculateTotal() };
 
     let newBudgets;
@@ -82,6 +101,9 @@ function Budget() {
     setBudgets(newBudgets);
     setBudgetsToPrint(newBudgets);
     setEditing(false);
+    setShowRepresentation(false);
+    // resetForm();
+    // setForm(fields);
   };
 
   const infoRoot = form.find((o) => o.name === "infoRoot");
@@ -123,7 +145,7 @@ function Budget() {
   };
 
   return (
-    <main className="budget">
+    <main>
       <Form
         form={form}
         setForm={setForm}
@@ -132,18 +154,24 @@ function Budget() {
         fieldsToPrint={fieldsToPrint}
         searchParams={searchParams}
         setSearchParams={setSearchParams}
+        emptyForm={emptyForm}
+        setShowRepresentation={setShowRepresentation}
       />
-      <Budgets
-        form={form}
-        budgets={budgets}
-        setBudgets={setBudgets}
-        setForm={setForm}
-        setEditing={setEditing}
-        setEditIndex={setEditIndex}
-        editing={editing}
-        budgetsToPrint={budgetsToPrint}
-        setBudgetsToPrint={setBudgetsToPrint}
-      />
+      {showRepresentation && <Representation form={form} />}
+      {!showRepresentation && (
+        <Budgets
+          form={form}
+          budgets={budgets}
+          setBudgets={setBudgets}
+          setForm={setForm}
+          setEditing={setEditing}
+          setEditIndex={setEditIndex}
+          editing={editing}
+          budgetsToPrint={budgetsToPrint}
+          setBudgetsToPrint={setBudgetsToPrint}
+          setShowRepresentation={setShowRepresentation}
+        />
+      )}
     </main>
   );
 }

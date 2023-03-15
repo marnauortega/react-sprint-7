@@ -1,11 +1,11 @@
-import React from "react";
-
-function QuantityButton({ increase, id, form, setForm, searchParams, setSearchParams }) {
+function QuantityButton({ increase, id, form, setForm, searchParams, setSearchParams, setShowRepresentation }) {
   const field = form[id];
 
   // Button qty update
   const updateQty = (e, increase) => {
     e.preventDefault();
+
+    setShowRepresentation(true);
 
     const newForm = [...form];
     if (increase) {

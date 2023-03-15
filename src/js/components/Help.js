@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import helpImage from "./../../images/help.svg";
 
 function Help({ id, form, setForm }) {
@@ -11,14 +11,17 @@ function Help({ id, form, setForm }) {
 
   return (
     <>
-      <img
+      <p className="help" onClick={() => setActive(true)}>
+        ?
+      </p>
+      {/* <img
         src={helpImage}
         className="icon"
         alt="help icon"
         onClick={() => {
           setActive(true);
         }}
-      />
+      /> */}
       {active && <Overlay help={help} setActive={setActive} />}
     </>
   );
@@ -29,7 +32,7 @@ function Overlay({ help, setActive }) {
     <>
       <div className="overlay">
         <div className="overlay-background" onClick={() => setActive(false)}></div>
-        <div className="overlay-card border">{help}</div>
+        <div className="overlay-card button">{help}</div>
       </div>
     </>
   );

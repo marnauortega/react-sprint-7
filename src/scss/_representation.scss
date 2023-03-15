@@ -1,0 +1,33 @@
+.cards-wrapper {
+  //   padding-block-end: 40px;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  flex: 1;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: linear-gradient(
+    90deg,
+    #f0b540 0%,
+    #f8a73d 9.09%,
+    #ff993e 18.18%,
+    #ff8a43 27.27%,
+    #ff7a4b 36.36%,
+    #ff6a55 45.45%,
+    #ff5961 54.55%,
+    #ff476e 63.64%,
+    #ff367c 72.73%,
+    #fe258b 81.82%,
+    #f2199a 90.91%,
+    #e318aa 100%
+  );
+  height: 275px;
+  width: 240px;
+  border-radius: 70px;
+}

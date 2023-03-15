@@ -1,35 +1,151 @@
-.field {
-  padding: 5px 0;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+.form-container {
+  justify-content: flex-start;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
-.field.text {
+.form {
+  flex: 1;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
-}
-
-.checkbox > input {
-  order: -1;
-}
-
-input[type="checkbox" i] {
-  margin: 0;
-}
-
-fieldset .field {
   justify-content: space-between;
 }
 
-.field:not(.text) input {
-  border: 0;
-  text-align: center;
+.field {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+  font-size: 20px;
+  font-weight: 200;
+  padding-top: 19px;
+}
+
+label {
+  display: flex;
+  flex: 1;
+}
+
+.field {
+  display: flex;
+  width: 100%;
+}
+
+.text input,
+.num input {
+  border: none;
+  background-color: transparent;
+  flex: 1;
+  text-align: right;
+  font-size: 20px;
+  padding-bottom: 3px;
+  font-weight: 200;
+}
+
+.text input::placeholder {
+  color: transparent;
+}
+
+.text input.placeholder-shown::placeholder {
+  color: gray;
+}
+
+.checkbox {
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+input[type="checkbox"] {
+  // hide default checkbox
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+
+  margin: 0;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-width: 1px 1px 0 1px;
+  background: transparent;
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  transform: scale(0);
+  transition: 0.1s transform ease-out;
+  background-color: #cfbfa4;
+  border-radius: 3px;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.total {
+  border: none;
+  justify-content: space-between;
+  padding-bottom: 60px;
+}
+
+// SUBFIELDS
+
+fieldset .field {
+  // gap: 10px;
+  justify-content: space-between;
+}
+
+.subfields {
+  border: none;
+  padding: 0;
+  min-inline-size: auto;
+}
+
+.subfields .field {
+  border: none;
+  position: relative;
+}
+
+.num input {
+  width: 50px;
+  flex: none;
+}
+
+.num:hover .quantities {
+  opacity: 1;
+}
+
+.quantities {
+  display: flex;
+  // position: absolute;
+  // left: 50%;
+  // transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
 }
 
 .quantity-update {
-  background: #f88c34;
-  color: white;
-  border-radius: 5px;
-  border: 0;
+  width: 22px;
+  height: 22px;
+  background: transparent;
+  border: 1px solid black;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+}
+
+.quantity-update:last-of-type {
+  border-left: none;
+}
+
+.help {
+  font-size: 12px;
+  cursor: pointer;
 }

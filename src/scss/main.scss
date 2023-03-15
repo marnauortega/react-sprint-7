@@ -3,21 +3,47 @@
 @import "_header";
 @import "_home";
 @import "_overlay";
+@import "_representation";
 @import "_variables";
 @import "_components";
 
+:root {
+  --main-color: orange;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 400;
+  src: url("../fonts/Inter-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 200;
+  src: url("../fonts/Inter-ExtraLight.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: 100;
+  src: url("../fonts/Inter-Thin.ttf") format("truetype");
+}
+
+html * {
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
 body {
   margin: 0;
-  font-family: serif;
+  background-color: #e3e3e3;
 }
 
 h1 {
+  margin: 0;
   text-transform: uppercase;
-  font-family: "Montserrat", sans-serif;
-  font-size: 30px;
-  line-height: 1.6;
-  font-weight: bolder;
-  color: hsl(300, 100%, 25%);
+  font-size: 80px;
+  font-weight: 400;
 }
 
 h3 {
@@ -30,23 +56,26 @@ p {
 
 #root {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
 }
 
-.border {
-  margin: 10px 0;
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 20px 10px;
-}
-
-.budget {
-  display: flex;
-  gap: 50px;
-}
-
 .icon {
   cursor: pointer;
+}
+
+main {
+  width: 100vw;
+  overflow-x: hidden;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 405px 1fr;
+  grid-template-rows: 1fr;
+}
+
+*:focus-visible {
+  outline: 1px solid #e5c992;
+  // Not accessible
+  outline: none;
 }
